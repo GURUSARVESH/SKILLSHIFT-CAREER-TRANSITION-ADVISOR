@@ -1,0 +1,42 @@
+document.getElementById('submitBtn').addEventListener('click', function() {
+    // 1. Capture user data
+    const role = document.getElementById('role').value;
+    const skills = document.getElementById('skills').value.toLowerCase();
+    const resultSection = document.getElementById('resultSection');
+
+    // 2. Mock Logic (Bridge to your 4 Benchmarked Datasets)
+    let recommendations = {};
+
+    // Check if the user is a Mech Engineer with Python (Your Profile)
+    if (role.toLowerCase().includes("mechanical") && skills.includes("python")) {
+        recommendations = {
+            paths: ["Data Analyst", "Business Analyst", "Supply Chain Analyst"],
+            toLearn: ["SQL", "Power BI", "Data Visualization"],
+            demand: "High",
+            salary: "₹6–12 LPA"
+        };
+    } else {
+        recommendations = {
+            paths: ["Software Developer", "Technical Support"],
+            toLearn: ["JavaScript", "Cloud Fundamentals"],
+            demand: "Medium",
+            salary: "₹4–8 LPA"
+        };
+    }
+
+    // 3. Inject data into HTML
+    const pathList = document.getElementById('pathList');
+    const skillList = document.getElementById('skillList');
+
+    pathList.innerHTML = recommendations.paths.map(p => `<li>${p}</li>`).join('');
+    skillList.innerHTML = recommendations.toLearn.map(s => `<li>${s}</li>`).join('');
+
+    document.getElementById('demandVal').innerText = recommendations.demand;
+    document.getElementById('salaryVal').innerText = recommendations.salary;
+
+    // 4. Reveal the results
+    resultSection.classList.remove('hidden');
+    resultSection.scrollIntoView({
+        behavior: 'smooth'
+    });
+});
